@@ -1,4 +1,4 @@
-// Implementation of a sparse undirected graph using adjacency list
+// Implementation of a sparse directed graph using adjacency list
 var Graph = function ()
 {
     this.nodes = [];
@@ -20,19 +20,19 @@ var Edge = function (node, cost)
 var Path = function()
 {
     this.nodes = [];
-    this.distances = [];
+    this.distances = {};
 };
 
 Graph.prototype.dijkstra = function (source, sink)
 {
-    var unvisted = {};
+    var unvisited = {};
     this.nodes.forEach(function (n)
     {
-        unvisted[n.id] = { node: n, visited: false, distance: Infinity };
+        unvisited[n.id] = { node: n, visited: false, distance: Infinity };
     });
 
-    var o = unvisted[source.id];
-    var t = unvisted[sink.id];
+    var o = unvisited[source.id];
+    var t = unvisited[sink.id];
 
     var current = o;
     current.distance = 0;
@@ -45,7 +45,7 @@ Graph.prototype.dijkstra = function (source, sink)
         current.node.edges
             .filter(function (e)
             {
-                return (e.node.id in unvisted);
+                return (e.node.id in unvisited);
             })
             .forEach(function (e)
             {
@@ -60,10 +60,12 @@ Graph.prototype.dijkstra = function (source, sink)
             });
 
         current.visited = true;
-        delete unvisted[current.node.id];
+        delete unvisited[current.node.id];
 
         // Min distance element
-        current = unvisted.reduce(function (prev, n) { return prev.distance > n.distance ? n : prev; });
+        current = Object.keys(unvisited)
+                    .map(function (k) { return unvisited[k]; })
+                    .reduce(function (prev, n) { return prev.distance > n.distance ? n : prev; });
     }
 
     // Reconstruct path
