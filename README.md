@@ -1,4 +1,4 @@
-GraphJS
+GraphLibJS
 =======
 
 Directed graphs in JavaScript using a sparse (adjacency list) representation
