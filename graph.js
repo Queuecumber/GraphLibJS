@@ -1,4 +1,4 @@
-// Implementation of a sparse directed graph using adjacency list
+// Implementation of a sparse directed graph using adjacency lists
 var Graph = function ()
 {
     this.nodes = [];
@@ -14,7 +14,7 @@ var Node = function (id, data)
 var Edge = function (node, cost)
 {
     this.node = node;
-    this.cost = cost;
+    this.cost = arguments.length > 1 ? cost : 1;
 };
 
 var Path = function()
@@ -23,8 +23,14 @@ var Path = function()
     this.distances = {};
 };
 
-Graph.prototype.dijkstra = function (source, sink)
+Graph.prototype.node = function (id)
 {
+    return this.nodes.reduce(function (p, n) { return n.id == id ? n : p; }, undefined);
+};
+
+Graph.prototype.shortestPath = function (source, sink)
+{
+    // Implementation of dijkstra's stortest path algorithm
     var unvisited = {};
     this.nodes.forEach(function (n)
     {
@@ -86,6 +92,16 @@ Graph.prototype.dijkstra = function (source, sink)
     }
 
     return path;
+};
+
+Node.prototype.edge = function (id)
+{
+    return this.edges.reduce(function (p, e) { return e.node.id == id ? e : p; }, undefined)
+};
+
+Path.prototype.node = function (id)
+{
+    return this.nodes.reduce(function (p, n) { return n.id == id ? n : p; }, undefined)
 };
 
 module.exports.Graph = Graph;
