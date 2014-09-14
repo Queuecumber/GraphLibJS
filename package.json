@@ -1,6 +1,7 @@
 {
   "name": "graphlib",
   "description": "Directed graphs in JavaScript using a sparse (adjacency list) representation",
-  "private": true
+  "private": true,
+  "version": "1.0.0"
 }
 
