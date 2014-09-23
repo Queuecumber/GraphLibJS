@@ -11,10 +11,11 @@ var Node = function (id, data)
     this.id = id;
 };
 
-var Edge = function (node, cost)
+var Edge = function (node, cost, data)
 {
     this.node = node;
     this.cost = arguments.length > 1 ? cost : 1;
+    this.data = data;
 };
 
 var Path = function()
