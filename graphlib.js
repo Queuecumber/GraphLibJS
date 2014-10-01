@@ -4,18 +4,16 @@ var Graph = function ()
     this.nodes = [];
 };
 
-var Node = function (id, data)
+var Node = function (id)
 {
     this.edges = [];
-    this.data = data;
     this.id = id;
 };
 
-var Edge = function (node, cost, data)
+var Edge = function (node, cost)
 {
     this.node = node;
     this.cost = arguments.length > 1 ? cost : 1;
-    this.data = data;
 };
 
 var Path = function()
